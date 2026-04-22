@@ -11,6 +11,7 @@
             --glass-bg: rgba(255, 255, 255, 0.07);
             --accent-color: #8a2be2;
             --neon-green: #00ffcc;
+            --light-purple: #bf77ff;
         }
 
         body {
@@ -23,12 +24,13 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 420px;
-            animation: fadeIn 0.6s ease-out;
+            animation: fadeIn 0.8s ease-out;
         }
 
         @keyframes fadeIn {
@@ -45,6 +47,7 @@
 
         .header-img {
             width: 100%;
+            max-width: 350px;
             border-radius: 24px;
             border: 1px solid rgba(138, 43, 226, 0.4);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(138, 43, 226, 0.3);
@@ -54,17 +57,27 @@
             font-size: 28px;
             text-align: center;
             margin: 10px 0;
-            background: linear-gradient(90deg, #fff, #bf77ff);
+            background: linear-gradient(90deg, #fff, var(--light-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .status-badge {
+            text-align: center;
+            color: var(--neon-green);
+            font-size: 12px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
         }
 
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .card {
@@ -76,52 +89,53 @@
             padding: 20px 10px;
             text-align: center;
             transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
         }
 
         .card:active {
-            transform: scale(0.96);
+            transform: scale(0.95);
             border-color: var(--neon-green);
             background: rgba(138, 43, 226, 0.15);
         }
 
-        .card-title { font-size: 14px; opacity: 0.8; margin-bottom: 5px; }
         .card-stars { font-size: 20px; font-weight: 800; display: block; margin-bottom: 5px; }
-        .card-price { color: var(--neon-green); font-weight: bold; }
+        .card-price { color: var(--neon-green); font-weight: bold; font-size: 16px; }
 
         .custom-input-section {
             margin-top: 25px;
             background: var(--glass-bg);
             border-radius: 24px;
-            padding: 20px;
+            padding: 25px;
             border: 1px solid rgba(138, 43, 226, 0.2);
+            box-sizing: border-box;
         }
 
-        .input-label { font-size: 14px; color: #b388ff; margin-bottom: 12px; display: block; }
+        .input-label { font-size: 14px; color: var(--light-purple); margin-bottom: 12px; display: block; }
 
         input {
             width: 100%;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             border: 1px solid var(--accent-color);
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 16px;
+            padding: 16px;
             color: #fff;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             text-align: center;
             outline: none;
             box-sizing: border-box;
+            transition: 0.3s;
         }
 
-        input:focus { border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0, 255, 204, 0.2); }
+        input:focus { border-color: var(--neon-green); box-shadow: 0 0 15px rgba(0, 255, 204, 0.2); }
 
         .total-box {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
             color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .buy-button {
@@ -134,18 +148,20 @@
             color: #fff;
             font-size: 18px;
             font-weight: bold;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
             transition: 0.2s;
+            cursor: pointer;
         }
 
-        .buy-button:active { transform: translateY(2px); opacity: 0.9; }
+        .buy-button:active { transform: scale(0.98); opacity: 0.9; }
 
         .footer-note {
             margin-top: 30px;
             font-size: 12px;
             opacity: 0.5;
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 30px;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -153,10 +169,11 @@
 
     <div class="container">
         <div class="logo-container">
-            <img src="logo.png" class="header-img">
+            <img src="logo.png" class="header-img" alt="Stars Shop Logo">
         </div>
 
-        <h1>STARS SHOP</h1>
+        <h1>Stars Shop</h1>
+        <div class="status-badge">● ONLINE</div>
 
         <div class="grid">
             <div class="card" onclick="setAmount(100)">
@@ -178,7 +195,7 @@
         </div>
 
         <div class="custom-input-section">
-            <span class="input-label">Введите свое количество:</span>
+            <span class="input-label">Укажите своё количество:</span>
             <input type="number" id="starsInput" placeholder="0" oninput="updatePrice()">
             <div class="total-box" id="totalPrice">Итого: 0 грн</div>
         </div>
@@ -187,7 +204,7 @@
 
         <div class="footer-note">
             🛡️ Официальное зачисление через Telegram <br>
-            Владелец: Маринич Олександр
+            Магазин Олександра Маринича
         </div>
     </div>
 
@@ -206,6 +223,7 @@
         function setAmount(num) {
             document.getElementById('starsInput').value = num;
             updatePrice();
+            // Вибрация при нажатии
             if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
         }
 
